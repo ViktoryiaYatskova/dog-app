@@ -56,6 +56,7 @@ function App() {
               onRefresh={handleHeroRefresh}
               onFavouriteToggle={handleFavouriteToggle}
               isFavourite={selectedDog ? isFavourite(selectedDog) : false}
+              favourites={favourites}
             />
           </section>
 

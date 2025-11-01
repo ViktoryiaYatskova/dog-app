@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { fetchRandomDogImage, getBreedFromImageUrl } from '../services/dogApi';
 import HeroSection from './HeroSection';
 import LoadingState from './LoadingState';
@@ -10,6 +10,7 @@ const RandomDogContainer = ({
   onRefresh = null,
   onFavouriteToggle = null,
   isFavourite = false,
+  favourites = [],
   className = ''
 }) => {
   const [dogData, setDogData] = useState(null);
@@ -58,6 +59,12 @@ const RandomDogContainer = ({
     }
   }, [selectedDog]);
 
+  // Recalculate favourite status whenever dogData or favourites change
+  const isCurrentDogFavourite = useMemo(() => {
+    if (!dogData) return false;
+    return favourites.some(fav => fav.imageUrl === dogData.imageUrl);
+  }, [dogData, favourites]);
+
   const Element = elementType;
 
   if (loading) {
@@ -87,7 +94,7 @@ const RandomDogContainer = ({
         dog={dogData}
         onRefresh={handleRefresh}
         onFavouriteToggle={onFavouriteToggle}
-        isFavourite={isFavourite}
+        isFavourite={isCurrentDogFavourite}
       />
     </Element>
   );

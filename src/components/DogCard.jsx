@@ -5,7 +5,10 @@ const DogCard = ({
   dog,
   index = null,
   onClick = null,
+  onFavouriteToggle = null,
+  isFavourite = false,
   isSelected = false,
+  showFavouriteButton = true,
   className = ''
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -33,6 +36,13 @@ const DogCard = ({
     }
   }, [onClick, dog, index]);
 
+  const handleFavouriteClick = useCallback((e) => {
+    e.stopPropagation(); // Prevent card click when clicking favourite button
+    if (onFavouriteToggle) {
+      onFavouriteToggle(dog, index);
+    }
+  }, [onFavouriteToggle, dog, index]);
+
   return (
     <Element 
       className={`dog-card ${isSelected ? 'selected' : ''} ${onClick ? 'clickable' : ''} ${className}`}
@@ -51,6 +61,16 @@ const DogCard = ({
           onLoad={handleImageLoad}
           onError={handleImageError}
         />
+        {showFavouriteButton && (
+          <button
+            className={`favourite-button ${isFavourite ? 'favourited' : ''}`}
+            onClick={handleFavouriteClick}
+            aria-label={isFavourite ? 'Remove from favourites' : 'Add to favourites'}
+            title={isFavourite ? 'Remove from favourites' : 'Add to favourites'}
+          >
+            {isFavourite ? '❤️' : '🤍'}
+          </button>
+        )}
       </div>
       <div className="dog-card-info">
         <h3 className="dog-card-breed">{dog.displayName}</h3>

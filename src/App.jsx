@@ -1,12 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import RandomDogContainer from './components/RandomDogContainer';
 import DogList from './components/DogList';
-import FavoritesList from './components/FavoritesList';
+import FavouritesList from './components/FavouritesList';
 import './App.css';
 
 function App() {
   const [selectedDog, setSelectedDog] = useState(null);
   const [selectedDogIndex, setSelectedDogIndex] = useState(null);
+  const [favourites, setFavourites] = useState([]);
 
   const handleThumbnailClick = useCallback((dog, index) => {
     setSelectedDog(dog);
@@ -19,6 +20,31 @@ function App() {
     setSelectedDogIndex(null);
   }, []);
 
+  const handleFavouriteToggle = useCallback((dog) => {
+    setFavourites(prevFavourites => {
+      const existingIndex = prevFavourites.findIndex(
+        fav => fav.imageUrl === dog.imageUrl
+      );
+      
+      if (existingIndex >= 0) {
+        // Remove from favourites
+        return prevFavourites.filter((_, index) => index !== existingIndex);
+      } else {
+        // Add to favourites
+        return [...prevFavourites, dog];
+      }
+    });
+  }, []);
+
+  const isFavourite = useCallback((dog) => {
+    return favourites.some(fav => fav.imageUrl === dog.imageUrl);
+  }, [favourites]);
+
+  const handleFavouriteClick = useCallback((dog, index) => {
+    setSelectedDog(dog);
+    setSelectedDogIndex(null); // Clear gallery selection when selecting from favourites
+  }, []);
+
   return (
     <div className="app">
       <div className="app-layout">
@@ -28,6 +54,8 @@ function App() {
             <RandomDogContainer
               selectedDog={selectedDog}
               onRefresh={handleHeroRefresh}
+              onFavouriteToggle={handleFavouriteToggle}
+              isFavourite={selectedDog ? isFavourite(selectedDog) : false}
             />
           </section>
 
@@ -35,15 +63,17 @@ function App() {
             <DogList
               onThumbnailClick={handleThumbnailClick}
               selectedDogIndex={selectedDogIndex}
+              onFavouriteToggle={handleFavouriteToggle}
+              isFavourite={isFavourite}
             />
           </section>
         </main>
 
-        {/* Favorites Sidebar */}
+        {/* Favourites Sidebar */}
         <aside className="sidebar">
-          <FavoritesList
-            favorites={[]}
-            onFavoriteClick={handleThumbnailClick}
+          <FavouritesList
+            favourites={favourites}
+            onFavouriteClick={handleFavouriteClick}
           />
         </aside>
       </div>

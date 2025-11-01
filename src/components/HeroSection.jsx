@@ -4,6 +4,8 @@ import DogCard from './DogCard';
 const HeroSection = ({
   dog,
   onRefresh,
+  onFavouriteToggle = null,
+  isFavourite = false,
   className = ''
 }) => {
   return (
@@ -13,8 +15,8 @@ const HeroSection = ({
         <div className="featured-dog-container">
           <DogCard
             dog={dog}
-            showRefreshButton={true}
-            onRefresh={onRefresh}
+            onFavouriteToggle={onFavouriteToggle}
+            isFavourite={isFavourite}
             className="hero-dog-card"
           />
           {onRefresh && (

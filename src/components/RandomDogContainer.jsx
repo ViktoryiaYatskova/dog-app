@@ -8,6 +8,8 @@ const RandomDogContainer = ({
   elementType = 'div',
   selectedDog = null,
   onRefresh = null,
+  onFavouriteToggle = null,
+  isFavourite = false,
   className = ''
 }) => {
   const [dogData, setDogData] = useState(null);
@@ -84,6 +86,8 @@ const RandomDogContainer = ({
       <HeroSection
         dog={dogData}
         onRefresh={handleRefresh}
+        onFavouriteToggle={onFavouriteToggle}
+        isFavourite={isFavourite}
       />
     </Element>
   );

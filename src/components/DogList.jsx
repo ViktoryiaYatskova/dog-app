@@ -7,7 +7,9 @@ import ErrorState from './ErrorState';
 const DogList = ({ 
   number = 10, 
   onThumbnailClick = null,
-  selectedDogIndex = null 
+  selectedDogIndex = null,
+  onFavouriteToggle = null,
+  isFavourite = null
 }) => {
   const [dogs, setDogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -65,6 +67,8 @@ const DogList = ({
                 index={index}
                 onClick={onThumbnailClick}
                 isSelected={selectedDogIndex === index}
+                onFavouriteToggle={onFavouriteToggle}
+                isFavourite={isFavourite ? isFavourite(dog) : false}
               />
             ))}
           </ul>

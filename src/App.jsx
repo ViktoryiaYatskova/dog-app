@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import RandomDogContainer from './components/RandomDogContainer';
 import DogList from './components/DogList';
+import FavoritesList from './components/FavoritesList';
 import './App.css';
 
 function App() {
@@ -20,22 +21,32 @@ function App() {
 
   return (
     <div className="app">
-      <main className="main-content">
-        {/* Featured Random Dog Section */}
-        <section className="hero-section">
-          <RandomDogContainer
-            selectedDog={selectedDog}
-            onRefresh={handleHeroRefresh}
-          />
-        </section>
+      <div className="app-layout">
+        <main className="main-content">
+          {/* Featured Random Dog Section */}
+          <section className="hero-section">
+            <RandomDogContainer
+              selectedDog={selectedDog}
+              onRefresh={handleHeroRefresh}
+            />
+          </section>
 
-        <section className="gallery-section">
-          <DogList
-            onThumbnailClick={handleThumbnailClick}
-            selectedDogIndex={selectedDogIndex}
+          <section className="gallery-section">
+            <DogList
+              onThumbnailClick={handleThumbnailClick}
+              selectedDogIndex={selectedDogIndex}
+            />
+          </section>
+        </main>
+
+        {/* Favorites Sidebar */}
+        <aside className="sidebar">
+          <FavoritesList
+            favorites={[]}
+            onFavoriteClick={handleThumbnailClick}
           />
-        </section>
-      </main>
+        </aside>
+      </div>
 
       <footer className="app-footer">
         <p>

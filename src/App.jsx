@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import RandomDogContainer from './components/RandomDogContainer';
 import DogList from './components/DogList';
 import FavouritesList from './components/FavouritesList';
+import { generateDogId, removeDogById } from './utils/dog-utils';
 import './App.css';
 
 function App() {
@@ -34,6 +35,10 @@ function App() {
         return [...prevFavourites, dog];
       }
     });
+  }, []);
+
+  const handleRemoveFavouriteById = useCallback((dogId) => {
+    setFavourites(prevFavourites => removeDogById(prevFavourites, dogId));
   }, []);
 
   const isFavourite = useCallback((dog) => {
@@ -75,6 +80,7 @@ function App() {
           <FavouritesList
             favourites={favourites}
             onFavouriteClick={handleFavouriteClick}
+            onRemoveFavourite={handleRemoveFavouriteById}
           />
         </aside>
       </div>

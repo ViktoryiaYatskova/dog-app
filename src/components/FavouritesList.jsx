@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { generateDogId, generateDogKey } from '../utils/dog-utils';
 
 const FavouritesList = ({
   favourites = [],
   onFavouriteClick = null,
+  onRemoveFavourite = null,
   selectedDogIndex = null,
   className = ''
 }) => {
+  const handleRemoveClick = useCallback((e, dog) => {
+    e.stopPropagation(); // Prevent favourite item click when clicking remove button
+    if (onRemoveFavourite) {
+      const dogId = generateDogId(dog);
+      onRemoveFavourite(dogId);
+    }
+  }, [onRemoveFavourite]);
+
   return (
     <aside className={`favourites-container ${className}`}>
       <header className="favourites-header">
@@ -26,7 +36,7 @@ const FavouritesList = ({
           <ul className="favourites-list">
             {favourites.map((dog, index) => (
               <li
-                key={`favourite-${dog.breed}-${dog.subBreed}-${index}`}
+                key={generateDogKey(dog, 'favourite')}
                 className={`favourite-item ${selectedDogIndex === index ? 'selected' : ''}`}
                 onClick={() => onFavouriteClick && onFavouriteClick(dog, index)}
               >
@@ -43,6 +53,14 @@ const FavouritesList = ({
                 <div className="favourite-info">
                   <h4 className="favourite-breed">{dog.displayName}</h4>
                 </div>
+                <button
+                  className="remove-favourite-button"
+                  onClick={(e) => handleRemoveClick(e, dog)}
+                  aria-label={`Remove ${dog.displayName} from favourites`}
+                  title={`Remove ${dog.displayName} from favourites`}
+                >
+                  ✕
+                </button>
               </li>
             ))}
           </ul>

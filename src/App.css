@@ -527,6 +527,35 @@
   text-overflow: ellipsis;
 }
 
+/* Remove Favourite Button */
+.remove-favourite-button {
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  color: #ff6b6b;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.remove-favourite-button:hover {
+  background: rgba(255, 107, 107, 0.2);
+  border-color: rgba(255, 107, 107, 0.5);
+  transform: scale(1.1);
+  color: #ff5252;
+}
+
+.remove-favourite-button:active {
+  transform: scale(0.95);
+}
+
 /* Footer */
 .app-footer {
   background: rgba(0, 0, 0, 0.1);

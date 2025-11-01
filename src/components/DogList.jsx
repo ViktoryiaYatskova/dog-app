@@ -3,6 +3,7 @@ import { fetchRandomDogs } from '../services/dogApi';
 import DogCard from './DogCard';
 import LoadingState from './LoadingState';
 import ErrorState from './ErrorState';
+import { generateDogKeyWithIndex } from '../utils/dog-utils';
 
 const DogList = ({ 
   number = 10, 
@@ -61,7 +62,7 @@ const DogList = ({
           <ul className="dog-grid" role="list">
             {dogs.map((dog, index) => (
               <DogCard
-                key={`${dog.breed}-${dog.subBreed}-${index}`}
+                key={generateDogKeyWithIndex(dog, index)}
                 elementType="li"
                 dog={dog}
                 index={index}

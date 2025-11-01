@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 const DogCard = ({
   elementType = 'div',
   dog,
   index = null,
+  onClick = null,
+  isSelected = false,
   className = ''
 }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -16,17 +18,26 @@ const DogCard = ({
     return null;
   }
 
-  const handleImageLoad = () => {
+  const handleImageLoad = useCallback(() => {
     setImageLoaded(true);
-  };
+  }, []);
 
-  const handleImageError = (e) => {
+  const handleImageError = useCallback((e) => {
     setImageError(true);
     e.target.src = 'https://via.placeholder.com/200x200?text=🐕';
-  };
+  }, []);
+
+  const handleClick = useCallback(() => {
+    if (onClick) {
+      onClick(dog, index);
+    }
+  }, [onClick, dog, index]);
 
   return (
-    <Element className={`dog-card ${className}`}>
+    <Element 
+      className={`dog-card ${isSelected ? 'selected' : ''} ${onClick ? 'clickable' : ''} ${className}`}
+      onClick={handleClick}
+    >
       <div className="dog-card-image-container">
         {!imageLoaded && !imageError && (
           <div className="dog-card-loading">

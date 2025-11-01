@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { fetchRandomDogs } from '../services/dogApi';
 import DogCard from './DogCard';
 import LoadingState from './LoadingState';
 import ErrorState from './ErrorState';
 
-const DogList = ({ number = 10 }) => {
+const DogList = ({ 
+  number = 10, 
+  onThumbnailClick = null,
+  selectedDogIndex = null 
+}) => {
   const [dogs, setDogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const loadRandomDogs = async () => {
+  const loadRandomDogs = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -21,7 +25,7 @@ const DogList = ({ number = 10 }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [number]);
 
   useEffect(() => {
     loadRandomDogs();
@@ -59,7 +63,8 @@ const DogList = ({ number = 10 }) => {
                 elementType="li"
                 dog={dog}
                 index={index}
-                showRefreshButton={false}
+                onClick={onThumbnailClick}
+                isSelected={selectedDogIndex === index}
               />
             ))}
           </ul>

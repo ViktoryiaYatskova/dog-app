@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { fetchRandomDogImage, getBreedFromImageUrl } from '../services/dogApi';
 import HeroSection from './HeroSection';
 import LoadingState from './LoadingState';
@@ -6,13 +6,15 @@ import ErrorState from './ErrorState';
 
 const RandomDogContainer = ({ 
   elementType = 'div',
+  selectedDog = null,
+  onRefresh = null,
   className = ''
 }) => {
   const [dogData, setDogData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const loadRandomDog = async () => {
+  const loadRandomDog = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
@@ -33,11 +35,26 @@ const RandomDogContainer = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  const handleRefresh = useCallback(() => {
+    if (onRefresh) {
+      onRefresh(); // Notify parent to clear selection
+    }
+    loadRandomDog();
+  }, [onRefresh, loadRandomDog]);
 
   useEffect(() => {
-    loadRandomDog();
-  }, []);
+    if (selectedDog) {
+      // Use selected dog from gallery
+      setDogData(selectedDog);
+      setLoading(false);
+      setError(null);
+    } else {
+      // Load random dog when no selection
+      loadRandomDog();
+    }
+  }, [selectedDog]);
 
   const Element = elementType;
 
@@ -56,7 +73,7 @@ const RandomDogContainer = ({
       <Element className={`random-dog-container ${className}`}>
         <ErrorState 
           message={error}
-          onRetry={loadRandomDog}
+          onRetry={handleRefresh}
         />
       </Element>
     );
@@ -66,7 +83,7 @@ const RandomDogContainer = ({
     <Element className={`random-dog-container ${className}`}>
       <HeroSection
         dog={dogData}
-        onRefresh={loadRandomDog}
+        onRefresh={handleRefresh}
       />
     </Element>
   );

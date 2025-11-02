@@ -34,10 +34,9 @@
 }
 
 .hero-section-content {
-  background: rgba(255, 255, 255, 0.95);
+  border: 3px dashed white;
   border-radius: 20px;
   padding: 40px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
 }
 
@@ -51,7 +50,7 @@
 .app-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #333;
+  color: white;
   margin: 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -241,19 +240,18 @@
 }
 
 .dog-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
 }
 
 /* Clickable and Selected States */
 .dog-card.clickable {
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .dog-card.clickable:hover {
-  transform: translateY(-12px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
 }
 
 .dog-card.selected {
@@ -263,12 +261,12 @@
 }
 
 .dog-card.selected:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 32px rgba(102, 126, 234, 0.4);
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(102, 126, 234, 0.4);
 }
 
 .dog-card.clickable:active {
-  transform: translateY(-2px);
+  transform: translateY(-6px);
   transition: all 0.1s ease;
 }
 

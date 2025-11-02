@@ -5,8 +5,8 @@ import LoadingState from './LoadingState';
 import ErrorState from './ErrorState';
 import { generateDogKeyWithIndex } from '../utils/dog-utils';
 
-const DogList = ({ 
-  number = 10, 
+const DogList = ({
+  number = 10,
   onThumbnailClick = null,
   selectedDogIndex = null,
   onFavouriteToggle = null,
@@ -30,9 +30,7 @@ const DogList = ({
     }
   }, [number]);
 
-  useEffect(() => {
-    loadRandomDogs();
-  }, [number]);
+  useEffect(loadRandomDogs, [loadRandomDogs]);
 
   return (
     <div className="dog-list-container">
@@ -45,13 +43,13 @@ const DogList = ({
       </div>
 
       {loading && (
-        <LoadingState 
+        <LoadingState
           message="Discovering amazing dogs from around the world..."
         />
       )}
 
       {error && (
-        <ErrorState 
+        <ErrorState
           message={error}
           onRetry={loadRandomDogs}
         />

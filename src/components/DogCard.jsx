@@ -4,8 +4,8 @@ const DogCard = ({
   elementType = 'div',
   dog,
   index = null,
-  onClick = null,
-  onFavouriteToggle = null,
+  onClick = () => {},
+  onFavouriteToggle = () => {},
   isFavourite = false,
   isSelected = false,
   showFavouriteButton = true,
@@ -30,21 +30,19 @@ const DogCard = ({
     e.target.src = 'https://via.placeholder.com/200x200?text=🐕';
   }, []);
 
-  const handleClick = useCallback(() => {
-    if (onClick) {
-      onClick(dog, index);
-    }
+  const handleClick = useCallback((e) => {
+    e.preventDefault();
+    onClick(dog, index);
   }, [onClick, dog, index]);
 
   const handleFavouriteClick = useCallback((e) => {
+    e.preventDefault();
     e.stopPropagation(); // Prevent card click when clicking favourite button
-    if (onFavouriteToggle) {
-      onFavouriteToggle(dog, index);
-    }
+    onFavouriteToggle(dog, index)
   }, [onFavouriteToggle, dog, index]);
 
   return (
-    <Element 
+    <Element
       className={`dog-card ${isSelected ? 'selected' : ''} ${onClick ? 'clickable' : ''} ${className}`}
       onClick={handleClick}
     >

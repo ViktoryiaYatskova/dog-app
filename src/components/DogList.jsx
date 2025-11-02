@@ -30,7 +30,9 @@ const DogList = ({
     }
   }, [number]);
 
-  useEffect(loadRandomDogs, [loadRandomDogs]);
+  useEffect(() => {
+    loadRandomDogs();
+  }, [loadRandomDogs]);
 
   return (
     <div className="dog-list-container">

@@ -94,19 +94,6 @@
   margin-bottom: 16px;
 }
 
-.refresh-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 14px 28px;
-  font-size: 16px;
-  border-radius: 25px;
-  font-weight: 600;
-}
-
-.refresh-button:hover {
-  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
-}
-
 /* Hero-specific styles */
 .hero-dog-card {
   max-width: 500px;
@@ -359,12 +346,6 @@
 }
 
 .dog-card-refresh-button {
-  background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
-  color: white;
-  padding: 6px 8px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
   min-width: 32px;
   height: 32px;
   display: flex;

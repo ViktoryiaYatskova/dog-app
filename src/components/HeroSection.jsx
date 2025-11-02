@@ -20,7 +20,7 @@ const HeroSection = ({
             className="hero-dog-card"
           />
           {onRefresh && (
-            <button onClick={onRefresh} className="hero-refresh-button">
+            <button onClick={onRefresh} className="refresh-button">
               🔄 Get Another Dog
             </button>
           )}

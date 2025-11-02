@@ -39,7 +39,7 @@ const DogList = ({
       <div className="section-header">
         <h2>🐾 Dog Gallery</h2>
         <p>Here are {number} random dogs from different breeds</p>
-        <button onClick={loadRandomDogs} className="refresh-gallery-button">
+        <button onClick={loadRandomDogs} className="refresh-button">
           🔄 Refresh Gallery
         </button>
       </div>
